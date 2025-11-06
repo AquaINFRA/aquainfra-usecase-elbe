@@ -1,0 +1,39 @@
+# /.binder/environment.yml
+# This file specifies the complete computational environment using Conda.
+
+name: elbe-toolbox
+channels:
+  - conda-forge # Use conda-forge as the primary (and only) channel
+
+dependencies:
+  # --- 1. R Runtime ---
+  - r-base=4.3 # The R language interpreter (version 4.3)
+
+  # --- 2. Core System Geospatial Libs (KEEP ALL) ---
+  - gdal # Geospatial Data Abstraction Library
+  - proj # Library for coordinate reference system (CRS) transformations
+  - geos # Geometry Engine, Open Source
+  - udunits2 # Library for handling scientific units
+
+  # --- 3. R Packages (Conda-Installed) ---
+  - r-sf # Simple Features
+  - r-terra # SpatRial Data Analysis
+  - r-dplyr # Data Manipulation
+  - r-areal # Areal weighted interpolation
+  - r-classint # Calculate class breaks
+  - r-ggplot2 # Data visualization
+  - r-units # Unit conversions
+  - r-rlang # Low-level R programming tools
+  - r-tidyverse # A collection of R packages for data science
+  - r-rcolorbrewer # Color palettes for maps
+  - pandoc # Document converter (NEEDED for htmlwidgets)
+  - r-curl # Dependency for R's internal package downloader
+  - r-codetools # Solves 'terra' warnings
+  - r-leaflet 
+  - r-htmlwidgets
+  
+  # (Packages missed during optimization)
+  # r-eurostat is REMOVED here and installed via CRAN in the Dockerfile
+  - r-giscor
+  - r-remotes
+  - r-foreign
