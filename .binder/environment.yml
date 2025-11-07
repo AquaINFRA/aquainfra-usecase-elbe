@@ -19,7 +19,6 @@ dependencies:
   - r-sf # Simple Features
   - r-terra # SpatRial Data Analysis
   - r-dplyr # Data Manipulation
-  - r-areal # Areal weighted interpolation
   - r-classint # Calculate class breaks
   - r-ggplot2 # Data visualization
   - r-units # Unit conversions
@@ -34,6 +33,5 @@ dependencies:
   
   # (Packages missed during optimization)
   # r-eurostat is REMOVED here and installed via CRAN in the Dockerfile
-  - r-giscor
   - r-remotes
   - r-foreign
