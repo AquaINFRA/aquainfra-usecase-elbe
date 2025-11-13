@@ -107,7 +107,7 @@ docker run -it --rm -v ./out:/out -e R_SCRIPT=process_create_visualizations.R d2
 
 Visit [https://mybinder.org/v2/gh/MarkusKonk/aquainfra-usecase-elbe/HEAD](https://mybinder.org/v2/gh/MarkusKonk/aquainfra-usecase-elbe/HEAD).
 
-Note: https://mybinder.org/ is just a test instance with limited resources. While step 1 and 3 succeed, step 2 is taking too much memory resulting in a connection error. Consequently, a more powerful MyBinder instance is needed. As an intermediate solution, just copy the files "example_output/weight_table.csv" "example_output//weight_table.rds" to the folder "out" created below.
+Note: https://mybinder.org/ is just a test instance with limited resources. While step 1 and 3 succeed, step 2 is taking too much memory resulting in a connection error. Consequently, a more powerful MyBinder instance is needed. As an intermediate solution, just copy the files "example_output/weight_table.csv" "example_output//weight_table.rds" to the folder "out" created below. Unfortunately this also applies to the final step 8, which creates the visualizations. In the steps 6,7,and 8 you will need to adjust the directory from source("src/utils.R") to source("utils.R"). 
 
 ### Create directory
 Open Terminal
