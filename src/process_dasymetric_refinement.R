@@ -166,7 +166,15 @@ tryCatch({
   
   # Reading inputs 
   nuts3pop_sf <- sf::st_read(path_nuts3pop)
-  weight_table_df <- readRDS(path_weight_table)
+
+  if (startsWith(path_weight_table, "https://")) {
+    con <- url(path_weight_table, "rb")
+    weight_table_df <- readRDS(con)
+    close(con)
+  } else {
+    weight_table_df <- readRDS(path_weight_table)
+  }
+
   analysis_extent_sf <- sf::st_read(path_extent)
   
   message("Running perform_dasymetric_refinement...")

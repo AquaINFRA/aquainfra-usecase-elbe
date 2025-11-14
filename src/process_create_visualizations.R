@@ -37,7 +37,15 @@ options(scipen = 100, digits = 4)
 #' @return invisible: Writes the file to disk.
 save_weight_table_csv <- function(weight_table_rds_path, output_csv_path) {
   message(paste("Saving weight table to", output_csv_path))
-  weight_table_df <- readRDS(weight_table_rds_path)
+  
+  if (startsWith(weight_table_rds_path, "https://")) {
+    con <- url(weight_table_rds_path, "rb")
+    weight_table_df <- readRDS(con)
+    close(con)
+  } else {
+    weight_table_df <- readRDS(weight_table_rds_path)
+  }
+
   write.csv(weight_table_df, output_csv_path, row.names = FALSE)
 }
 
