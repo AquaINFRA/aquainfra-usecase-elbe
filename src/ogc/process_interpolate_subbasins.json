@@ -23,7 +23,7 @@
             "description": "inputFile1_gpkg DESCRIPTION",
             "schema": {
                 "type": "object",
-                "contentMediaType": "application/x-sqlite3"
+                "contentMediaType": "application/geopackage+sqlite3"
             },
             "minOccurs": 1,
             "maxOccurs": 1,
@@ -34,7 +34,7 @@
             "description": "inputFile2_gpkg DESCRIPTION",
             "schema": {
                 "type": "object",
-                "contentMediaType": "application/x-sqlite3"
+                "contentMediaType": "application/geopackage+sqlite3"
             },
             "minOccurs": 1,
             "maxOccurs": 1,
@@ -47,7 +47,7 @@
             "description": "subbasin_population_density gpkg DESCRIPTION",
             "schema": {
                 "type": "object",
-                "contentMediaType": "application/x-sqlite3v"
+                "contentMediaType": "application/geopackage+sqlite3"
             }
         }
     },

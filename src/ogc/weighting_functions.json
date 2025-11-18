@@ -34,7 +34,7 @@
             "description": "inputFile2_gpkg DESCRIPTION",
             "schema": {
                 "type": "object",
-                "contentMediaType": "application/x-sqlite3"
+                "contentMediaType": "application/geopackage+sqlite3"
             },
             "minOccurs": 1,
             "maxOccurs": 1,

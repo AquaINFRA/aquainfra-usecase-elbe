@@ -23,7 +23,7 @@
             "description": "inputFile1_gpkg DESCRIPTION",
             "schema": {
                 "type": "object",
-                "contentMediaType": "application/x-sqlite3"
+                "contentMediaType": "application/geopackage+sqlite3"
             },
             "minOccurs": 1,
             "maxOccurs": 1,
@@ -36,7 +36,7 @@
             "description": "catchment_cleaned gpkg DESCRIPTION",
             "schema": {
                 "type": "object",
-                "contentMediaType": "application/x-sqlite3"
+                "contentMediaType": "application/geopackage+sqlite3"
             }
         }
     },

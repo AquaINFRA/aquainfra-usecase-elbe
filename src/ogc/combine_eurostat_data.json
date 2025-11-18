@@ -22,7 +22,11 @@
             "title": "country_code TITLE",
             "description": "country_code DESCRIPTION",
             "schema": {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                    "DE",
+                    "CZ"
+                ]
             },
             "minOccurs": 1,
             "maxOccurs": 1,
@@ -32,7 +36,16 @@
             "title": "year TITLE",
             "description": "year DESCRIPTION",
             "schema": {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                    "2003",
+                    "2006",
+                    "2010",
+                    "2013",
+                    "2016",
+                    "2021",
+                    "2024"
+                ]
             },
             "minOccurs": 1,
             "maxOccurs": 1,
@@ -44,14 +57,14 @@
             "title": "nuts3_pop_data gpkg TITLE",
             "description": "nuts3_pop_data gpkg DESCRIPTION",
             "schema": {
-                "type": "object",
-                "contentMediaType": "application/x-sqlite3"
+                "contentMediaType": "application/geopackage+sqlite3"
             }
         }
     },
     "example": {
         "inputs": {
-            "country_code": "DE"
+            "country_code": "DE",
+            "year": "2021"
         }
     }
 }
