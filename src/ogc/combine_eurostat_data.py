@@ -14,6 +14,7 @@ metadata_title_and_path = script_title_and_path.replace('.py', '.json')
 PROCESS_METADATA = json.load(open(metadata_title_and_path))
 
 '''
+# TESTED 2025-11-19
 curl -X POST https://${PYSERVER}/processes/combine-eurostat-data/execution \
   --header 'Prefer: respond-async;return=representation' \
   --header 'Content-Type: application/json' \
@@ -68,12 +69,13 @@ class CombineEurostatDataProcessor(BaseProcessor):
         # Where to store output data
         downloadfilename = 'nuts3_pop_data-%s.gpkg' % self.my_job_id
         downloadfilepath = f'{output_dir}/{downloadfilename}'
+        downloadlink     = f'{output_url}/{downloadfilename}'
 
         # Assemble args for script:
         script_args = [in_country_code, in_year, downloadfilepath]
 
         # Run docker container:
-        returncode, stdout, stderr, user_err_msg = run_docker_container(
+        returncode, stdout, stderr, user_err_msg = docker_utils.run_docker_container(
             self.docker_executable,
             self.image_name,
             self.script_name,
@@ -87,8 +89,6 @@ class CombineEurostatDataProcessor(BaseProcessor):
             raise ProcessorExecuteError(user_msg = err_msg)
 
         else:
-            # Create download link:
-            downloadlink = output_url.rstrip('/')+os.sep+downloadfilename
 
             # Return link to file:
             response_object = {
