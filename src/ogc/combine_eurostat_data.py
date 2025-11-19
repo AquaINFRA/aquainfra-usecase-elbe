@@ -41,6 +41,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
         config_file_path = os.environ.get('AQUAINFRA_CONFIG_FILE', "./config.json")
         with open(config_file_path, 'r') as configFile:
             configJSON = json.load(configFile)
+            self.docker_executable = configJSON["docker_executable"]
             self.download_dir = configJSON["download_dir"].rstrip('/')
             self.download_url = configJSON["download_url"].rstrip('/')
 
@@ -63,6 +64,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
         downloadfilename = 'nuts3_pop_data-%s.gpkg' % self.my_job_id
 
         returncode, stdout, stderr = run_docker_container(
+            self.docker_executable,
             self.image_name,
             in_country_code,
             in_year,
@@ -96,6 +98,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
 
 
 def run_docker_container(
+        docker_executable,
         image_name,
         in_country_code,
         in_year,
@@ -112,7 +115,7 @@ def run_docker_container(
     script = 'combine_eurostat_data.R'
 
     docker_command = [
-        "docker", "run", "--rm", "--name", container_name,
+        docker_executable, "run", "--rm", "--name", container_name,
         "-v", f"{local_out}:{container_out}",
         "-e", f"R_SCRIPT={script}",
         image_name,
