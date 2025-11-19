@@ -38,7 +38,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
         return f'<CombineEurostatDataProcessor> {self.name}'
 
     def execute(self, data, outputs=None):
-        config_file_path = os.environ.get('DAUGAVA_CONFIG_FILE', "./config.json")
+        config_file_path = os.environ.get('AQUAINFRA_CONFIG_FILE', "./config.json")
         with open(config_file_path, 'r') as configFile:
             configJSON = json.load(configFile)
             self.download_dir = configJSON["download_dir"].rstrip('/')
