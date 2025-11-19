@@ -6,6 +6,69 @@ import os
 LOGGER = logging.getLogger(__name__)
 
 
+
+def run_docker_container(
+        docker_executable,
+        image_name,
+        script,
+        local_out,
+        script_args
+    ):
+
+    LOGGER.debug('Prepare running docker container (image: %s)' % image_name)
+    container_name = f'{image_name.split(':')[0]}_{os.urandom(5).hex()}'
+
+    # Mounting
+    container_out = '/out'
+
+    # Replace the host path with the container path in all script args:
+    script_args_sanitized = []
+    for arg in script_args:
+        LOGGER.debug('Verifying arg: %s' % arg)
+        if local_out in arg:
+            newarg = arg.replace(local_out, container_out)
+            LOGGER.debug(f'Replaced {arg} by {newarg}')
+        else:
+            newarg = arg
+        script_args_sanitized.append(newarg)
+
+    # Assemble docker command:
+    docker_command = [
+        docker_executable, "run", "--rm", "--name", container_name,
+        "-v", f"{local_out}:{container_out}",
+        "-e", f"R_SCRIPT={script}",
+        image_name
+    ]
+    docker_command = docker_command + script_args_sanitized
+    LOGGER.debug('Docker command: %s' % docker_command)
+
+    # Run container
+    try:
+        LOGGER.debug('Start running docker container (image: %s, name: %s)' % (image_name, container_name))
+
+        result = subprocess.run(docker_command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        LOGGER.debug('Finished running docker container (image: %s, name: %s)' % (image_name, container_name))
+
+        # Print and return docker output:
+        stdout = result.stdout.decode()
+        stderr = result.stderr.decode()
+        log_docker_output(stdout, stderr)
+        user_err_msg = get_error_message_from_docker_stderr_R(stdout, stderr)
+        return result.returncode, stdout, stderr, user_err_msg
+
+    except subprocess.CalledProcessError as e:
+        returncode = e.returncode
+        LOGGER.debug('Failed running docker container (exit code %s)(image: %s, name: %s)' % (returncode, image_name, container_name))
+
+        # Print and return docker output:
+        stdout = e.stdout.decode()
+        stderr = e.stderr.decode()
+        log_docker_output(stdout, stderr)
+        user_err_msg = get_error_message_from_docker_stderr_R(stdout, stderr)
+        return returncode, stdout, stderr, user_err_msg
+
+
+
 def log_docker_output(stdout, stderr):
     # Print docker output:
     LOGGER.debug('Logging Docker stdout...')
