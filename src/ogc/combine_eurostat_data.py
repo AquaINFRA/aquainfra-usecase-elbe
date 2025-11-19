@@ -33,6 +33,8 @@ class CombineEurostatDataProcessor(BaseProcessor):
         self.process_id = self.metadata["id"]
         self.my_job_id = 'nothing-yet'
         self.image_name = 'aquainfra-elbe-usecase-image:20251119'
+        self.script_name = 'combine_eurostat_data.R'
+
 
     def set_job_id(self, job_id: str):
         self.my_job_id = job_id
@@ -69,6 +71,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
         returncode, stdout, stderr, user_err_msg = run_docker_container(
             self.docker_executable,
             self.image_name,
+            self.script_name,
             in_country_code,
             in_year,
             output_dir,
@@ -101,6 +104,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
 def run_docker_container(
         docker_executable,
         image_name,
+        script,
         in_country_code,
         in_year,
         local_out,
@@ -112,8 +116,6 @@ def run_docker_container(
 
     # Mounting
     container_out = '/out'
-
-    script = 'combine_eurostat_data.R'
 
     docker_command = [
         docker_executable, "run", "--rm", "--name", container_name,
