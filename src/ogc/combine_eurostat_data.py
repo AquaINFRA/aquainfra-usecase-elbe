@@ -3,6 +3,9 @@ import subprocess
 import json
 import os
 from pygeoapi.process.base import BaseProcessor, ProcessorExecuteError
+# how to import python modules containing a hyphen:
+import importlib
+docker_utils = importlib.import_module("pygeoapi.process.aquainfra-usecase-elbe.src.ogc.docker_utils")
 
 LOGGER = logging.getLogger(__name__)
 
@@ -10,17 +13,6 @@ script_title_and_path = __file__
 metadata_title_and_path = script_title_and_path.replace('.py', '.json')
 PROCESS_METADATA = json.load(open(metadata_title_and_path))
 
-'''
-curl -X POST https://${PYSERVER}/processes/combine-eurostat-data/execution \
-  --header 'Prefer: respond-async;return=representation' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "inputs": {
-      "country_code": "DE",
-      "year": "2021"
-    }
-}'
-'''
 
 class CombineEurostatDataProcessor(BaseProcessor):
 
@@ -63,7 +55,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
         # Where to store output data
         downloadfilename = 'nuts3_pop_data-%s.gpkg' % self.my_job_id
 
-        returncode, stdout, stderr = run_docker_container(
+        returncode, stdout, stderr, user_err_msg = run_docker_container(
             self.docker_executable,
             self.image_name,
             in_country_code,
@@ -73,10 +65,8 @@ class CombineEurostatDataProcessor(BaseProcessor):
         )
 
         if not returncode == 0:
-            err_msg = 'Running docker container failed.'
-            for line in stderr.split('\n'):
-                if line.startswith('Error'):
-                    err_msg = 'Running docker container failed: %s' % (line)
+            user_err_msg = "no message" if len(user_err_msg) == 0 else user_err_msg
+            err_msg = 'Running docker container failed: %s' % user_err_msg
             raise ProcessorExecuteError(user_msg = err_msg)
 
         else:
@@ -134,7 +124,17 @@ def run_docker_container(
         # Print and return docker output:
         stdout = result.stdout.decode()
         stderr = result.stderr.decode()
-        return result.returncode, stdout, stderr
+        docker_utils.log_docker_output(stdout, stderr)
+        user_err_msg = docker_utils.get_error_message_from_docker_stderr_R(stdout, stderr)
+        return result.returncode, stdout, stderr, user_err_msg
 
     except subprocess.CalledProcessError as e:
-        return e.returncode, e.stdout.decode(), e.stderr.decode()
+        returncode = e.returncode
+        LOGGER.debug('Failed running docker container (exit code %s)(image: %s, name: %s)' % (returncode, image_name, container_name))
+
+        # Print and return docker output:
+        stdout = e.stdout.decode()
+        stderr = e.stderr.decode()
+        docker_utils.log_docker_output(stdout, stderr)
+        user_err_msg = docker_utils.get_error_message_from_docker_stderr_R(stdout, stderr)
+        return returncode, stdout, stderr, user_err_msg
