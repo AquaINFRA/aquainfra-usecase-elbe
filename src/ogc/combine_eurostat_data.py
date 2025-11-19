@@ -16,6 +16,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
         super().__init__(processor_def, PROCESS_METADATA)
         self.supports_outputs = True
         self.my_job_id = 'nothing-yet'
+        self.image_name = 'aquainfra-elbe-usecase-image:20251119'
 
     def set_job_id(self, job_id: str):
         self.my_job_id = job_id
@@ -45,6 +46,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
         downloadfilename = 'nuts3_pop_data-%s.gpkg' % self.my_job_id
 
         returncode, stdout, stderr = run_docker_container(
+            self.image_name,
             in_country_code,
             in_year,
             download_dir, 
@@ -77,14 +79,15 @@ class CombineEurostatDataProcessor(BaseProcessor):
 
 
 def run_docker_container(
+        image_name,
         in_country_code,
         in_year,
         download_dir, 
         downloadfilename
     ):
-    LOGGER.debug('Start running docker container')
-    container_name = f'aquainfra-elbe-usecase-image_{os.urandom(5).hex()}'
-    image_name = 'aquainfra-elbe-usecase-image'
+
+    LOGGER.debug('Prepare running docker container (image: %s)' % image_name)
+    container_name = f'{image_name.split(':')[0]}_{os.urandom(5).hex()}'
 
     # Mounting
     container_out = '/out'
@@ -105,7 +108,12 @@ def run_docker_container(
 
     # Run container
     try:
+        LOGGER.debug('Start running docker container (image: %s, name: %s)' % (image_name, container_name))
+
         result = subprocess.run(docker_command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        LOGGER.debug('Finished running docker container (image: %s, name: %s)' % (image_name, container_name))
+
+        # Print and return docker output:
         stdout = result.stdout.decode()
         stderr = result.stderr.decode()
         return result.returncode, stdout, stderr
