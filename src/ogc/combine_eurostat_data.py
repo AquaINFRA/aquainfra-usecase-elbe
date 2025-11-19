@@ -13,6 +13,17 @@ script_title_and_path = __file__
 metadata_title_and_path = script_title_and_path.replace('.py', '.json')
 PROCESS_METADATA = json.load(open(metadata_title_and_path))
 
+'''
+curl -X POST https://${PYSERVER}/processes/combine-eurostat-data/execution \
+  --header 'Prefer: respond-async;return=representation' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "inputs": {
+      "country_code": "DE",
+      "year": "2021"
+    }
+}'
+'''
 
 class CombineEurostatDataProcessor(BaseProcessor):
 
