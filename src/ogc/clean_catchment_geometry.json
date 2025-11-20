@@ -3,7 +3,7 @@
     "id": "clean-catchment-geometry",
     "use_case": "Elbe",
     "title": {
-        "en": "Validate catchment geometries"
+        "en": "Validate geometries (e.g. river catchments)"
     },
     "description": {
         "en": "Validate geometries and save them as multi-polygons (R function 'preprocess_catchment_geometry')"
@@ -19,8 +19,8 @@
     }],
     "inputs": {
         "inputFile1_gpkg": {
-            "title": "Catchment polygon dataset to be validated.",
-            "description": "URL to the catchment polygon dataset that you want to validate.",
+            "title": "Polygon dataset (e.g. river catchments) to be validated.",
+            "description": "URL to the polygon dataset that you want to validate (e.g. river catchments).",
             "schema": {
                 "type": "object",
                 "contentMediaType": "application/geopackage+sqlite3"
@@ -32,8 +32,8 @@
     },
     "outputs": {
         "catchment_cleaned": {
-            "title": "Validated multi-polygon catchment dataset",
-            "description": "Catchment dataset validated and stored as a multi-polygon.",
+            "title": "Validated multi-polygon dataset (e.g. river catchments)",
+            "description": "Dataset validated and stored as a multi-polygon (e.g. river catchments).",
             "schema": {
                 "type": "object",
                 "contentMediaType": "application/geopackage+sqlite3"
