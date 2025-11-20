@@ -33,7 +33,7 @@
             "keywords": []
         },
         "year": {
-            "title": "NUTS3 focus year",
+            "title": "NUTS3 version year",
             "description": "Year for EU NUTS3 region version to be used and combined with the latest EU annual human population statistics available.",
             "schema": {
                 "type": "string",
