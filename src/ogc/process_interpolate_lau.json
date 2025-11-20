@@ -3,10 +3,10 @@
     "id": "process-interpolate-lau",
     "use_case": "Elbe",
     "title": {
-        "en": "process-interpolate-lau...TITLE"
+        "en": "Measure precision of human population dasymetric refinement by comparing observed and estimated human population for EU LAU regions."
     },
     "description": {
-        "en": "process-interpolate-lau...DESCRIPTION"
+        "en": "Estimate annual human population for Eurostat LAU (Local Areal Units) regions based on area-weighted ancillary data and compare with observed LAU human population values."
     },
     "jobControlOptions": ["sync-execute", "async-execute"],
     "keywords": ["elbe use case", "AquaINFRA", "keyword 3", "keyword 4"],
@@ -19,8 +19,8 @@
     }],
     "inputs": {
         "inputFile1_gpkg": {
-            "title": "inputFile1_gpkg TITLE",
-            "description": "inputFile1_gpkg DESCRIPTION",
+            "title": "Ancillary data: Significant urban CORINE CLC polygons with estimated human population",
+            "description": "Ancillary data for modelling human population finer, stored as geopackage, and cut to analysis extent, and consisting of significant urban CORINE CLC polygons with estimated human population calculated through dasymetric refinement of NUTS3 human population based on density-derived input weights calculated from overlapping CORINE CLC raster with Eurostat 2021 Census Grid. It should have same coordinate system as the LAU input data.",
             "schema": {
                 "type": "object",
                 "contentMediaType": "application/geopackage+sqlite3"
@@ -30,8 +30,8 @@
             "keywords": []
         },
         "inputFile2_gpkg": {
-            "title": "inputFile2_gpkg TITLE",
-            "description": "inputFile2_gpkg DESCRIPTION",
+            "title": "LAU regions with latest annual human population",
+            "description": "Validated EU LAU (Local Areal Unit) regions with latest annual human population, with validated geometries, stored as geopackage, and cut to analysis extent. It should have same coordinate system as the ancillary input data and be based on same statistical focus year.",
             "schema": {
                 "type": "object",
                 "contentMediaType": "application/geopackage+sqlite3"
@@ -43,8 +43,8 @@
     },
     "outputs": {
         "lau_population_errors": {
-            "title": "lau_population_errors gpkg TITLE",
-            "description": "lau_population_errors gpkg DESCRIPTION",
+            "title": "Control data: LAU regions with estimated annual human population.",
+            "description": "LAU regions with estimated annual human population based on area-weighted ancillary data and its difference to observed latest annual human population. It can act as control data indicating the precision of the dasymetric refinement process for modelling human population finer in scale.",
             "schema": {
                 "type": "object",
                 "contentMediaType": "application/geopackage+sqlite3"
