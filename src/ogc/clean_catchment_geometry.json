@@ -3,10 +3,10 @@
     "id": "clean-catchment-geometry",
     "use_case": "Elbe",
     "title": {
-        "en": "clean-catchment-geometry...TITLE"
+        "en": "Validate catchment geometries"
     },
     "description": {
-        "en": "clean-catchment-geometry...DESCRIPTION"
+        "en": "Validate geometries and save them as multi-polygons (R function 'preprocess_catchment_geometry')"
     },
     "jobControlOptions": ["sync-execute", "async-execute"],
     "keywords": ["elbe use case", "AquaINFRA", "keyword 3", "keyword 4"],
@@ -19,8 +19,8 @@
     }],
     "inputs": {
         "inputFile1_gpkg": {
-            "title": "inputFile1_gpkg TITLE",
-            "description": "inputFile1_gpkg DESCRIPTION",
+            "title": "Catchment polygon dataset to be validated.",
+            "description": "URL to the catchment polygon dataset that you want to validate.",
             "schema": {
                 "type": "object",
                 "contentMediaType": "application/geopackage+sqlite3"
@@ -32,8 +32,8 @@
     },
     "outputs": {
         "catchment_cleaned": {
-            "title": "catchment_cleaned gpkg TITLE",
-            "description": "catchment_cleaned gpkg DESCRIPTION",
+            "title": "Validated multi-polygon catchment dataset",
+            "description": "Catchment dataset validated and stored as a multi-polygon.",
             "schema": {
                 "type": "object",
                 "contentMediaType": "application/geopackage+sqlite3"
