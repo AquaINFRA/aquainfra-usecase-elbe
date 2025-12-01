@@ -33,7 +33,7 @@ class CombineEurostatDataProcessor(BaseProcessor):
         self.supports_outputs = True
         self.process_id = self.metadata["id"]
         self.my_job_id = 'nothing-yet'
-        self.image_name = 'aquainfra-elbe-usecase-image:20251119'
+        self.image_name = 'aquainfra-elbe-usecase-image:20251201'
         self.script_name = 'combine_eurostat_data.R'
 
 
