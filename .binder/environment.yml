@@ -37,3 +37,6 @@ dependencies:
   #- r-giscor
   - r-remotes
   - r-foreign
+
+  # libgdal.so.36: undefined symbol: sqlite3_total_changes64
+  - sqlite=3.50
