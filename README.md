@@ -8,7 +8,7 @@ It follows the **Data-to-Knowledge (D2K)** framework of the **AquaINFRA** projec
 
 You can open this toolbox in an online RStudio environment (no installation needed) using **MyBinder**:
 
-[![Launch RStudio on MyBinder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/<your-username>/elbe-d2k-toolbox/main?urlpath=rstudio)
+[![Launch RStudio on MyBinder](https://mybinder.org/badge_logo.svg)]([https://mybinder.org/v2/gh/<your-username>/elbe-d2k-toolbox/main?urlpath=rstudio](https://mybinder.org/v2/gh/AquaINFRA/aquainfra-usecase-elbe/HEAD)) [![Replay](https://img.shields.io/badge/launch-EGI%20Replay-F5A252.svg)](https://replay.notebooks.egi.eu/v2/gh/AMIGA-IAA/hcg-16/HEAD)
 
 Replace `<your-username>` with your GitHub username after pushing this repository.
 
