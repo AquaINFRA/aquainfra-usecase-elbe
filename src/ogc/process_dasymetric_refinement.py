@@ -21,7 +21,7 @@ class ProcessDasymetricRefinementProcessor(BaseProcessor):
         self.supports_outputs = True
         self.process_id = self.metadata["id"]
         self.my_job_id = 'nothing-yet'
-        self.image_name = 'aquainfra-elbe-usecase-image:20251201'
+        self.image_name = 'aquainfra-elbe-usecase:20260925'
         self.script_name = 'process_dasymetric_refinement.R'
 
     def set_job_id(self, job_id: str):
