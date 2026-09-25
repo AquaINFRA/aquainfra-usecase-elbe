@@ -25,6 +25,11 @@ source("src/utils.R") # For make_system_interval
 # --- 3. GLOBAL SETTINGS ---
 options(scipen = 100, digits = 4)
 
+# Basemap for all interactive maps. CARTO's "CartoDB.Positron" tiles now
+# require an API key and otherwise come back stamped "API KEY REQUIRED",
+# so use Esri's keyless light-grey canvas instead.
+basemap_provider <- "Esri.WorldGrayCanvas"
+
 # --- 4. FUNCTION DEFINITIONS (Rewritten) ---
 ################################################################################
 
@@ -84,7 +89,7 @@ save_lau_error_map <- function(estimated_lau_pop_sf, output_path) {
   
   # Generate the leaflet map
   map_widget <- leaflet(data = map_data) %>%
-    addProviderTiles(providers$CartoDB.Positron) %>%
+    addProviderTiles(basemap_provider) %>%
     addPolygons(
       fillColor = ~pal(pop2018dif_percent_abs), 
       weight = 1,
@@ -152,7 +157,7 @@ save_subbasin_density_map <- function(subcatch_ecrins_with_pop_sf, output_path) 
   
   # Generate the leaflet map
   map_widget <- leaflet(data = map_data) %>%
-    addProviderTiles(providers$CartoDB.Positron) %>%
+    addProviderTiles(basemap_provider) %>%
     addPolygons(
       fillColor = ~pal(densKm2),
       weight = 1,
