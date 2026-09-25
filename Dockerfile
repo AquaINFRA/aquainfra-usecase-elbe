@@ -8,7 +8,7 @@
 # 2. Installs 'eurostat' from CRAN to get the latest version and fix API errors.
 
 # 1. Start from a miniconda base image
-FROM continuumio/miniconda3:latest
+FROM continuumio/miniconda3:25.3.1-1
 
 # 2. Set the working directory
 WORKDIR /app
